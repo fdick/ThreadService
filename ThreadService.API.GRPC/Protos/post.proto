@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "PostService.API.GRPC.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service GRPCPostsController {
+	rpc GetMessages (GRPCPostRequest) returns (GRPCPostResponse);
+}
+
+message GRPCPostRequest {
+	string threadID = 1;
+}
+
+message GRPCPostResponse {
+	repeated GRPCPost posts = 1;
+}
+
+message GRPCPost {
+    string Id = 1;              // Guid
+    string threadId = 2;              // Guid threadId
+    string userId = 3;                 // Guid userId
+    string content = 4;                // string msg
+    int32 likesQuantity = 5;           // int likesQuantity
+    int32 dislikesQuantity = 6;        // int dislikeQuantity
+    google.protobuf.Timestamp createdAt = 7;  // DateTime createTime
+    google.protobuf.StringValue parentPostId = 8;  // Guid? parentMessageId (nullable)
+}
