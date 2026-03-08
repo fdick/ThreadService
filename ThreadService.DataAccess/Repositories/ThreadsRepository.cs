@@ -33,7 +33,7 @@ namespace ThreadService.DataAccess.Repositories
 
             //get posts
             GRPCPostRequest req = new GRPCPostRequest() { ThreadID = threadId.ToString() };
-            var grpcResponse = _grpcClient.GetMessages(req);
+            var grpcResponse = _grpcClient.GetPosts(req);
 
             var posts = grpcResponse.Posts.Select(x => Post.Create(
                 Guid.Parse(x.Id),
@@ -41,7 +41,7 @@ namespace ThreadService.DataAccess.Repositories
                 x.LikesQuantity,
                 x.DislikesQuantity,
                 x.CreatedAt.ToDateTime(),
-                Guid.Parse(x.ParentPostId),
+                x.ParentPostId == null ? null : Guid.Parse(x.ParentPostId),
                 Guid.Parse(x.UserId),
                 Guid.Parse(x.ThreadId)).Item1
             ).ToList();

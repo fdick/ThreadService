@@ -23,7 +23,6 @@ builder.Services.AddScoped<IThreadsSevice, ThreadsSevice>();
 builder.Services.AddScoped<IThreadsRepository, ThreadsRepository>();
 
 var channel = GrpcChannel.ForAddress(builder.Configuration["Grpc:Host"]);
-//var grpcClient = new GRPCPostsController.GRPCPostsControllerClient(channel);
 builder.Services.AddScoped(provider =>
     new GRPCPostsController.GRPCPostsControllerClient(channel)
 );

@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 service GRPCPostsController {
-	rpc GetMessages (GRPCPostRequest) returns (GRPCPostResponse);
+	rpc GetPosts (GRPCPostRequest) returns (GRPCPostResponse);
 }
 
 message GRPCPostRequest {

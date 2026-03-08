@@ -38,7 +38,7 @@ namespace ThreadService.API.Controllers
         {
             var (thread, error) = await _threadsSevice.GetThreadWithAllPosts(threadId);
 
-            if (error != null) 
+            if (!string.IsNullOrEmpty(error)) 
             {
                 return BadRequest(error);
             }
@@ -75,12 +75,14 @@ namespace ThreadService.API.Controllers
                 request.description
                 );
 
-            if(string.IsNullOrEmpty(error))
+            if(!string.IsNullOrEmpty(error))
             { 
                 return BadRequest(error); 
             }
 
-            return Ok(thread);
+            var guid = await _threadsSevice.CreateAsync(thread);
+
+            return Ok(guid);
         }
 
         [HttpDelete("{threadId:guid}")]
