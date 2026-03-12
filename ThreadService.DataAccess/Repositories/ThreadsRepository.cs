@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PostService.API.GRPC.Protos;
+using ThreadService.Application.Abstractions;
 using ThreadService.Core.Abstractions;
 using ThreadService.Core.Models;
-using ThreadService.DataAccess.Entities;
+using ThreadService.Persistance.Entities;
 
-namespace ThreadService.DataAccess.Repositories
+namespace ThreadService.Persistance.Repositories
 {
     public class ThreadsRepository : IThreadsRepository
     {
         private readonly ThreadServiceDbContext _context;
-        private readonly GRPCPostsController.GRPCPostsControllerClient _grpcClient;
+        private readonly IPostsServiceGRPC _grpcClient;
 
-        public ThreadsRepository(ThreadServiceDbContext context, GRPCPostsController.GRPCPostsControllerClient grpcClient)
+        public ThreadsRepository(ThreadServiceDbContext context, IPostsServiceGRPC grpcClient)
         {
             this._context = context;
             this._grpcClient = grpcClient;
@@ -30,10 +31,9 @@ namespace ThreadService.DataAccess.Repositories
         {
             var error = string.Empty;
 
-
             //get posts
             GRPCPostRequest req = new GRPCPostRequest() { ThreadID = threadId.ToString() };
-            var grpcResponse = _grpcClient.GetPosts(req);
+            var grpcResponse = await _grpcClient.GetPostsAsync(req);
 
             var posts = grpcResponse.Posts.Select(x => Post.Create(
                 Guid.Parse(x.Id),

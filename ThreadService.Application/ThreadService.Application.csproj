@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ThreadService.API.GRPC\ThreadService.GRPC.Client.csproj" />
     <ProjectReference Include="..\ThreadService.Core\ThreadService.Core.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ThreadService.DataAccess.Entities
+﻿namespace ThreadService.Persistance.Entities
 {
     public class PostEntity
     {

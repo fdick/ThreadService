@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ThreadService.DataAccess.Entities;
+using ThreadService.Persistance.Entities;
 
-namespace ThreadService.DataAccess.Configurations
+namespace ThreadService.Persistance.Configurations
 {
     public class ThreadConfiguration : IEntityTypeConfiguration<ThreadEntity>
     {

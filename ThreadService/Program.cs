@@ -1,10 +1,11 @@
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using PostService.API.GRPC.Protos;
+using ThreadService.Application.Abstractions;
 using ThreadService.Application.Services;
 using ThreadService.Core.Abstractions;
-using ThreadService.DataAccess;
-using ThreadService.DataAccess.Repositories;
+using ThreadService.Persistance;
+using ThreadService.Persistance.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +23,11 @@ builder.Services.AddDbContext<ThreadServiceDbContext>(opt =>
 builder.Services.AddScoped<IThreadsSevice, ThreadsSevice>();
 builder.Services.AddScoped<IThreadsRepository, ThreadsRepository>();
 
-var channel = GrpcChannel.ForAddress(builder.Configuration["Grpc:Host"]);
-builder.Services.AddScoped(provider =>
-    new GRPCPostsController.GRPCPostsControllerClient(channel)
-);
-
+builder.Services.AddGrpcClient<GRPCPostsController.GRPCPostsControllerClient>(opt =>
+{
+    opt.Address = new Uri(builder.Configuration["Grpc:Host"]!);
+});
+builder.Services.AddScoped<IPostsServiceGRPC, PostsServiceGRPC>();
 
 
 var app = builder.Build();

@@ -21,7 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ThreadService.API.GRPC\ThreadService.GRPC.Client.csproj" />
     <ProjectReference Include="..\ThreadService.Application\ThreadService.Application.csproj" />
-    <ProjectReference Include="..\ThreadService.DataAccess\ThreadService.DataAccess.csproj" />
+    <ProjectReference Include="..\ThreadService.DataAccess\ThreadService.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

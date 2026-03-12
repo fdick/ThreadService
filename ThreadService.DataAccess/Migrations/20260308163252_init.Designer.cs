@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using ThreadService.DataAccess;
+using ThreadService.Persistance;
 
 #nullable disable
 
-namespace ThreadService.DataAccess.Migrations
+namespace ThreadService.Persistance.Migrations
 {
     [DbContext(typeof(ThreadServiceDbContext))]
     [Migration("20260308163252_init")]

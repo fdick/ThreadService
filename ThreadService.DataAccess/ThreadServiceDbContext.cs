@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ThreadService.DataAccess.Entities;
+using ThreadService.Persistance.Entities;
 
-namespace ThreadService.DataAccess
+namespace ThreadService.Persistance
 {
     public class ThreadServiceDbContext : DbContext
     {

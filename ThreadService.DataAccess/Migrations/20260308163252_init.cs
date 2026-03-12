@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ThreadService.DataAccess.Migrations
+namespace ThreadService.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

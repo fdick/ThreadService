@@ -1,4 +1,4 @@
-﻿namespace ThreadService.DataAccess.Entities
+﻿namespace ThreadService.Persistance.Entities
 {
     public class ThreadEntity
     {
