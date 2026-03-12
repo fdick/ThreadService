@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using PostService.API.GRPC.Protos;
 using ThreadService.Application.Abstractions;
 using ThreadService.Core.Abstractions;
@@ -11,11 +13,13 @@ namespace ThreadService.Persistance.Repositories
     {
         private readonly ThreadServiceDbContext _context;
         private readonly IPostsServiceGRPC _grpcClient;
+        private readonly HttpContext _httpContext;
 
-        public ThreadsRepository(ThreadServiceDbContext context, IPostsServiceGRPC grpcClient)
+        public ThreadsRepository(ThreadServiceDbContext context, IPostsServiceGRPC grpcClient, HttpContext httpContext)
         {
             this._context = context;
             this._grpcClient = grpcClient;
+            this._httpContext = httpContext;
         }
 
         public async Task<List<(Core.Models.Thread, string)>> GetAll()
@@ -33,7 +37,9 @@ namespace ThreadService.Persistance.Repositories
 
             //get posts
             GRPCPostRequest req = new GRPCPostRequest() { ThreadID = threadId.ToString() };
-            var grpcResponse = await _grpcClient.GetPostsAsync(req);
+
+            var token = await _httpContext.GetTokenAsync("access_token");
+            var grpcResponse = await _grpcClient.GetPostsAsync(req, token);
 
             var posts = grpcResponse.Posts.Select(x => Post.Create(
                 Guid.Parse(x.Id),
