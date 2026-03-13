@@ -12,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(opt =>
+{
+    opt.EnableDetailedErrors = true;
+});
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ThreadServiceDbContext>(opt =>
 {
@@ -22,6 +26,7 @@ builder.Services.AddDbContext<ThreadServiceDbContext>(opt =>
 
 builder.Services.AddScoped<IThreadsSevice, ThreadsSevice>();
 builder.Services.AddScoped<IThreadsRepository, ThreadsRepository>();
+builder.Services.AddScoped<ITokenProvider, KeycloakTokenProvider>();
 
 builder.Services.AddGrpcClient<GRPCPostsController.GRPCPostsControllerClient>(opt =>
 {
