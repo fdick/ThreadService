@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PostService.API.GRPC.Protos;
 using ThreadService.Application.Abstractions;
 using ThreadService.Core.Abstractions;

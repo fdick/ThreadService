@@ -6,7 +6,7 @@ using ThreadService.Core.Abstractions;
 namespace ThreadService.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    //[Route("[controller]")]
     public class ThreadsController : ControllerBase
     {
         private readonly IThreadsSevice _threadsSevice;
@@ -16,7 +16,7 @@ namespace ThreadService.API.Controllers
             this._threadsSevice = threadsSevice;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<List<ThreadsResponse>>> GetAll()
         {
             var threads = await _threadsSevice.GetAllAsync();
@@ -34,6 +34,7 @@ namespace ThreadService.API.Controllers
         }
 
         [HttpGet("{threadId:guid}")]
+        [Route("GetThreadWithPosts")]
         public async Task<ActionResult<List<ThreadsResponse>>> GetThreadWithPosts(Guid threadId)
         {
             var (thread, error) = await _threadsSevice.GetThreadWithAllPosts(threadId);
@@ -64,7 +65,7 @@ namespace ThreadService.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("CreateThread")]
         public async Task<ActionResult<Guid>> CreateThread([FromBody] ThreadsRequest request)
         {
             var (thread, error)= Core.Models.Thread.Create(
@@ -85,18 +86,18 @@ namespace ThreadService.API.Controllers
             return Ok(guid);
         }
 
-        [HttpDelete("{threadId:guid}")]
+        [HttpDelete("DeleteThread/{threadId:guid}")]
         public async Task<ActionResult<Guid>> DeleteThread(Guid threadId)
         {
-            var guid = _threadsSevice.DeleteAsync(threadId);
+            var guid = await _threadsSevice.DeleteAsync(threadId);
 
             return Ok(guid);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateThread")]
         public async Task<ActionResult<Guid>> UpdateThread(Core.Models.Thread updatedThread)
         {
-            var guid = _threadsSevice.UpdateAsync(updatedThread);
+            var guid = await _threadsSevice.UpdateAsync(updatedThread);
 
             return Ok(guid);
         }

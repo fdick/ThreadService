@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ThreadService.API.GRPC/ThreadService.GRPC.Client.csproj" />
+  <Project Path="ThreadService.Application/ThreadService.Application.csproj" />
+  <Project Path="ThreadService.Core/ThreadService.Core.csproj" />
+  <Project Path="ThreadService.Persistance/ThreadService.Persistance.csproj" />
+  <Project Path="ThreadService/ThreadService.API.csproj" />
+</Solution>
